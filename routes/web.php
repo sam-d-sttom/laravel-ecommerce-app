@@ -1,10 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\RedirectIfAuthenticated;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\RedirectIfNotAuthenticated;
 
 Route::get('/', function () {
     return view('home');
@@ -25,7 +26,11 @@ Route::post('/login', [AuthController::class,'login']);
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
+
 Route::get('/dashboard', function () {
-    return view('dashboard');
-});
+    return redirect('/dashboard/profile');
+})->middleware(RedirectIfNotAuthenticated::class);
+Route::get('/dashboard/profile', function () {
+    return view('dashboard.pages.profile');
+})->middleware(RedirectIfNotAuthenticated::class);
 

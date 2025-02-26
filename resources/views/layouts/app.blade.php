@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <a href="/logout">Logout</a>
+    <x-header title="ECOMMERCE" />
     @yield('content')
 </body>
 
