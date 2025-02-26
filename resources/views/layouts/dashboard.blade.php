@@ -97,7 +97,7 @@
             </div>
 
         </aside>
-        <div class="p-[20px]">
+        <div class=" overflow-y-scroll w-full">
             @yield('content')
         </div>
     </section>
