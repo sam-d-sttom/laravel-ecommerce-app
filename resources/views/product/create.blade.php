@@ -26,6 +26,11 @@
             </div>
 
             <div class="mb-4">
+                <label class="block text-gray-700">Stock</label>
+                <input type="number" name="stock" step="1" class="w-full p-2 border rounded" required>
+            </div>
+
+            <div class="mb-4">
                 <label class="block text-gray-700">Category</label>
                 <select id="category" name="category_id" class="w-full p-2 border rounded" required>
                     <option value="">Select a Category</option>
