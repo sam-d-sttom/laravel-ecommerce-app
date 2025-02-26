@@ -25,18 +25,35 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        // validate user credentials
-        $credentials = $request->validate([
+        // Validate user credentials
+        $validator = Validator::make($request->all(), [
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
         ]);
 
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-            return redirect($user->role === 'admin' ? '/admin/dashboard' : '/');
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        return back()->withErrors(['email' => 'Invalid credentials']);
+        // Get validated credentials
+        $credentials = $validator->validated();
+
+        // Find user by email
+        $user = User::where('email', $request->email)->first();
+
+        if ($user) {
+            // Determine guard based on role
+            $guard = $user->role === 'admin' ? 'admin' : 'web';
+
+            // Attempt login using guard
+            if (Auth::guard($guard)->attempt($credentials)) {
+                $request->session()->regenerate(); // Secure the session
+
+                return redirect()->intended($user->role === 'admin' ? '/dashboard' : '/');
+            }
+        }
+
+        return redirect()->back()->withErrors(['email' => 'Invalid credentials'])->withInput();
     }
 
 
@@ -44,9 +61,20 @@ class AuthController extends Controller
      * Summary of logout
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function logout()
+    public function logout(Request $request)
     {
-        Auth::logout();
+        // Logout Admin
+        if (Auth::guard('admin')->check()) {
+            Auth::guard('admin')->logout(); 
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            return redirect('/login');
+        }
+
+        // Logout normal user
+        Auth::guard('web')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         return redirect('/login');
     }
 

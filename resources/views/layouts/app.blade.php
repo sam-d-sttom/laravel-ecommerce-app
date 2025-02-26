@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <a href="/logout">Logout</a>
     @yield('content')
 </body>
 
