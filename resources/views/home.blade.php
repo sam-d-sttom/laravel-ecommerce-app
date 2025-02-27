@@ -1,14 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Register')
+@section('title', 'Ecommerce | Home')
 
 @section('content')
 
-@if(Auth::check())
-<p>Welcome, {{ Auth::user()->name }}!</p>
-<p>Email: {{ Auth::user()->email }}</p>
-@else
-<p>Welcome, Guest!</p>
-@endif
+
+<x-product-section title="SHOES" :products="$shoes" />
+<x-product-section title="CLOTHES" :products="$clothes"/>
+<x-product-section title="WATCHES" :products="$watches"/>
 
 @endsection

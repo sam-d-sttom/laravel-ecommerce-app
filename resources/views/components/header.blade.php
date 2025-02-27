@@ -1,6 +1,6 @@
-<header class="bg-white shadow-md p-4 flex justify-between items-center z-40 fixed w-full">
+<header class="bg-white shadow-md p-4 flex justify-between items-center z-40 w-full">
     <!-- App Name / Title -->
-    <a href="" class="text-xl font-bold text-gray-700">{{ $title }}</a>
+    <a href="/" class="text-xl font-bold text-gray-700">{{ $title }}</a>
 
 
     <!-- User Menu -->
