@@ -17,7 +17,7 @@ class RedirectIfAuthenticated
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::guard('admin')->check()) {
-            return redirect('/admin/dashboard');
+            return redirect('/dashboard');
         } elseif (Auth::guard('web')->check()) {
             return redirect('/');
         }

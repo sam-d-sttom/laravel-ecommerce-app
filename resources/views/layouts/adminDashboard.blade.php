@@ -13,6 +13,8 @@
     <div class="flex flex-col h-screen">
         <x-header title="ECOMMERCE" />
         <main class="bg-gray-100 grow">
+
+           
             <section class="flex h-full">
                 <!-- Dashboard side bar -->
                 <aside class="">
@@ -22,33 +24,37 @@
                         </div>
 
                         <nav class="flex-1 p-4 space-y-2">
-                            
                             <ul>
                                 <li>
-                                    <a href="/dashboard/profile" class="block px-4 py-2 rounded hover:bg-gray-700">
+                                    <a href="/admin/dashboard/profile" class="block px-4 py-2 rounded hover:bg-gray-700">
                                         Profile
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/dashboard/wishlist" class="block px-4 py-2 rounded hover:bg-gray-700">
-                                        Wishlist
+                                    <a href="/admin/product/create" class="block px-4 py-2 rounded hover:bg-gray-700">
+                                        Add Product
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/admin/product/update" class="block px-4 py-2 rounded hover:bg-gray-700">
+                                        Edit Product
                                     </a>
                                 </li>
                                 <li>
                                     <a href="/product/update" class="block px-4 py-2 rounded hover:bg-gray-700">
-                                        Orders
+                                        All Products
                                     </a>
                                 </li>
                                 <li>
                                     <a href="/user/update" class="block px-4 py-2 rounded hover:bg-gray-700">
-                                        Settings
+                                        Edit User
                                     </a>
                                 </li>
                             </ul>
 
                         </nav>
 
-                        <form action="{{ route('logout') }}" method="POST" class="p-4">
+                        <form action="{{ route('admin.logout') }}" method="POST" class="p-4">
                             @csrf
                             <button type="submit" class="w-full px-4 py-2 text-left bg-red-600 rounded hover:bg-red-700">
                                 🚪 Logout
@@ -63,7 +69,6 @@
             </section>
         </main>
     </div>
-    <script src="{{ asset('js/wishlist.js') }}"></script>
     @livewireScripts
 </body>
 

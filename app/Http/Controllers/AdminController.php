@@ -2,20 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-class AuthController extends Controller
+class AdminController extends Controller
 {
     /**
-     * SShow user login form
-     * @return \Illuminate\Contracts\View\View
+     * Summary of showLoginForm
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
      */
     public function showLoginForm()
     {
-        return view('auth.login');
+        if(Auth::guard('admin')->check()){
+            return redirect('/admin/dashboard');
+        }
+        if (Auth::guard('web')->check()) {
+            return redirect('/');
+        }
+        return view('admin.login');
     }
 
     /**
@@ -38,19 +44,11 @@ class AuthController extends Controller
         // Get validated credentials
         $credentials = $validator->validated();
 
-        // Find user by email
-        $user = User::where('email', $request->email)->first();
 
-        if ($user) {
-            // Determine guard based on role
-            $guard = $user->role === 'admin' ? 'admin' : 'web';
-
-            // Attempt login using guard
-            if (Auth::guard($guard)->attempt($credentials)) {
-                $request->session()->regenerate(); // Secure the session
-
-                return redirect($user->role === 'admin' ? '/dashboard' : '/');
-            }
+        // Attempt login user in
+        if (Auth::guard('admin')->attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect('/admin/dashboard');
         }
 
         return redirect()->back()->withErrors(['email' => 'Invalid credentials'])->withInput();
@@ -63,19 +61,11 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
-        // Logout Admin
-        if (Auth::guard('admin')->check()) {
-            Auth::guard('admin')->logout(); 
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-            return redirect('/');
-        }
-
         // Logout normal user
-        Auth::guard('web')->logout();
+        Auth::guard('admin')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/');
+        return redirect('/admin/login');
     }
 
 
@@ -85,7 +75,7 @@ class AuthController extends Controller
      */
     public function showRegisterForm()
     {
-        return view('auth.register');
+        return view('admin.register');
     }
 
 
@@ -96,9 +86,10 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
+        // dd('admin register');
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email|unique:admins',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
@@ -109,17 +100,16 @@ class AuthController extends Controller
         // Get validated data
         $validatedData = $validator->validated();
 
-        // Create a new user with default "user" role
-        $user = User::create([
+        // Create a new admin
+        $admin = Admin::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => bcrypt($validatedData['password']),
-            'role' => 'user',
         ]);
 
-        // Auto login user after registration
-        Auth::login($user);
+        // Auto login admin after registration
+        Auth::guard('admin')->login($admin);
 
-        return redirect('/');
+        return redirect('/admin/dashboard');
     }
 }

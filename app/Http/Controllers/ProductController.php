@@ -16,7 +16,7 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $sub_categories = SubCategory::all();
-        return view("product.create")->with(["categories" => $categories, "subcategories" => $sub_categories]);
+        return view("admin.dashboard.addProduct")->with(["categories" => $categories, "subcategories" => $sub_categories]);
     }
 
     public function store(Request $request)
