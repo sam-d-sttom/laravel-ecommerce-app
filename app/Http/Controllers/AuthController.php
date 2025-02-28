@@ -49,7 +49,7 @@ class AuthController extends Controller
             if (Auth::guard($guard)->attempt($credentials)) {
                 $request->session()->regenerate(); // Secure the session
 
-                return redirect()->intended($user->role === 'admin' ? '/dashboard' : '/');
+                return redirect($user->role === 'admin' ? '/dashboard' : '/');
             }
         }
 

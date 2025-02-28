@@ -17,12 +17,18 @@ class Product extends Model
     ];
 
 
-    public function Category(){
+    public function Category()
+    {
         return $this->belongsTo(Category::class);
     }
 
     public function subCategory()
     {
         return $this->belongsTo(SubCategory::class);
+    }
+
+    public function wishlist()
+    {
+        return $this->hasMany(Wishlist::class);
     }
 }

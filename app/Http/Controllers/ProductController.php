@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -51,15 +52,30 @@ class ProductController extends Controller
      */
     public function getCategoryFeaturedProducts($category_id)
     {
-        $product = Product::where('category_id', $category_id)->limit(4)->latest()->get();
-        return $product;
+        if (!is_numeric($category_id)) {
+            return collect();
+        }
+
+        $products = Product::where('category_id', $category_id)
+            ->latest()
+            ->limit(4)
+            ->withExists(['wishlist as is_wishlisted' => function ($query) {
+                $query->where('user_id', Auth::id());
+            }])
+            ->get();
+        return $products;
     }
 
 
     public function getProductsByCategory($category_name)
     {
         $category = Category::where('name', $category_name)->firstOrFail();
-        $products = $category->products()->orderByDesc('id')->get();
+        $products = $category->products()->orderByDesc('id')->latest()
+            ->limit(4)
+            ->withExists(['wishlist as is_wishlisted' => function ($query) {
+                $query->where('user_id', Auth::id());
+            }])
+            ->get();
 
         return view('product.productsByCategory')->with([
             'products' => $products,
@@ -70,7 +86,12 @@ class ProductController extends Controller
 
     public function getSingleProduct($id)
     {
-        $product = Product::where('id', $id)->firstOrFail();
+        $product = Product::where('id', $id)
+            ->withExists(['wishlist as is_wishlisted' => function ($query) {
+                $query->where('user_id', Auth::id());
+            }])
+            ->firstOrFail();
+
         return view('product.singleProduct')->with([
             'product' => $product
         ]);
