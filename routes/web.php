@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
@@ -78,4 +79,9 @@ Route::middleware(['auth:web'])->group(function () {
 
     Route::get('/dashboard/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
     Route::post('/wishlist/toggle/{productId}', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
+
+    Route::get('/dashboard/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::get('/dashboard/checkout', [AppController::class, 'checkout'])->name('checkout');
+    Route::get('/dashboard/orders', [AppController::class, 'orders'])->name('orders');
+    Route::get('/dashboard/orders/{orderId}', [AppController::class, 'order'])->name('order');
 });

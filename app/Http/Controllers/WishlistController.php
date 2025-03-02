@@ -12,9 +12,7 @@ class WishlistController extends Controller
     public function index()
     {
         $wishlistItems = Wishlist::where('user_id', Auth::id())->with('product')->get();
-        return view('dashboard.wishlist')->with([
-            'wishlistItems' => $wishlistItems
-        ]);
+        return view('dashboard.wishlist');
     }
 
     public function toggle($productId)

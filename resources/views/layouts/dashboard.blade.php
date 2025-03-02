@@ -12,7 +12,7 @@
 <body>
     <div class="flex flex-col h-screen">
         <x-header title="ECOMMERCE" />
-        <main class="bg-gray-100 grow">
+        <main class="bg-gray-100 flex-1 overflow-hidden">
             <section class="flex h-full">
                 <!-- Dashboard side bar -->
                 <aside class="">
@@ -35,7 +35,12 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/product/update" class="block px-4 py-2 rounded hover:bg-gray-700">
+                                    <a href="/dashboard/cart" class="block px-4 py-2 rounded hover:bg-gray-700">
+                                        Cart
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/dashboard/orders" class="block px-4 py-2 rounded hover:bg-gray-700">
                                         Orders
                                     </a>
                                 </li>
@@ -57,7 +62,7 @@
                     </div>
 
                 </aside>
-                <div class=" overflow-y-scroll w-full">
+                <div class="h-full w-full">
                     @yield('content')
                 </div>
             </section>

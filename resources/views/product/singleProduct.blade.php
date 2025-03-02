@@ -22,7 +22,7 @@
                     <span class="text-lg font-semibold text-gray-900">${{ number_format($product->price, 2) }}</span>
 
                     <!-- Wishlist Button -->
-                    <x-wishlist-button :isWishlisted="$product->is_wishlisted" :productId="$product->id"/>
+                    <!-- <x-wishlist-button :isWishlisted="$product->is_wishlisted" :productId="$product->id"/> -->
                 </div>
 
                 <!-- Category & Subcategory -->
@@ -33,12 +33,7 @@
 
                 <!-- Add to Cart Button -->
                 <div class="absolute bottom-2 w-[80%]">
-                    <form action="" method="POST" class="mt-6">
-                        @csrf
-                        <button type="submit" class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg text-lg font-semibold hover:bg-blue-700 transition">
-                            🛒 Add to Cart
-                        </button>
-                    </form>
+                    <livewire:add-to-cart-btn-component :product="$product" />
                 </div>
             </div>
         </div>

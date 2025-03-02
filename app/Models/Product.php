@@ -31,4 +31,13 @@ class Product extends Model
     {
         return $this->hasMany(Wishlist::class);
     }
+
+    public function cartitem()
+    {
+        return $this->hasMany(CartItem::class);
+    }
+
+    public function orderitems(){
+        return $this->hasMany(OrderItem::class);
+    }
 }

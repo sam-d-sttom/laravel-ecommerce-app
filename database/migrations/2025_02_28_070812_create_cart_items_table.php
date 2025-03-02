@@ -12,14 +12,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('carts', function (Blueprint $table) {
+        Schema::create('cart_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->integer('quantity')->default(0);
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->integer('quantity')->default(1);
+            $table->integer('total_cost')->default(0);
             $table->timestamps();
         });
 
-        DB::statement('ALTER TABLE carts ADD CONSTRAINT chk_quantity_min CHECK (quantity >= 0)');
+        DB::statement('ALTER TABLE cart_items ADD CONSTRAINT chk_items_quantity_min CHECK (quantity >= 1)');
     }
 
     /**
@@ -27,7 +29,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // DB::statement('ALTER TABLE carts DROP CONSTRAINT IF EXISTS chk_quantity_min');
-        Schema::dropIfExists('carts');
+        // DB::statement('ALTER TABLE cart_items DROP CONSTRAINT IF EXISTS chk_items_quantity_min');
+        Schema::dropIfExists('cart_items');
     }
 };

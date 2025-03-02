@@ -19,4 +19,16 @@ class AppController extends Controller
             "watches"=> $watches
         ]);
     }
+
+    public function checkout(){
+        return view("dashboard.checkout");
+    }
+
+    public function orders(){
+        return view("dashboard.orders");
+    }
+
+    public function order($orderId){
+        return view("dashboard.order")->with(["orderId"=> $orderId]);
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -99,11 +100,16 @@ class UserController extends Controller
         // Get validated data
         $validatedData = $validator->validated();
 
-        // Create a new user with default "user" role
+        // Create a new user 
         $user = User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => bcrypt($validatedData['password']),
+        ]);
+
+        // Create new cart for user
+        Cart::create([
+            'user_id'=> $user->id,
         ]);
 
         // Auto login user after registration
