@@ -12,7 +12,7 @@
 <body>
     <div class="flex flex-col h-screen">
         <x-header title="ECOMMERCE" />
-        <main class="bg-gray-100 grow">
+        <main class="bg-gray-100 flex-1 overflow-hidden">
 
            
             <section class="flex h-full">
@@ -31,23 +31,13 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/admin/product/create" class="block px-4 py-2 rounded hover:bg-gray-700">
+                                    <a href="/admin/dashboard/product/create" class="block px-4 py-2 rounded hover:bg-gray-700">
                                         Add Product
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/admin/product/update" class="block px-4 py-2 rounded hover:bg-gray-700">
-                                        Edit Product
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/product/update" class="block px-4 py-2 rounded hover:bg-gray-700">
-                                        All Products
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/user/update" class="block px-4 py-2 rounded hover:bg-gray-700">
-                                        Edit User
+                                    <a href="/admin/dashboard/categories" class="block px-4 py-2 rounded hover:bg-gray-700">
+                                        Categories
                                     </a>
                                 </li>
                             </ul>
@@ -57,13 +47,13 @@
                         <form action="{{ route('admin.logout') }}" method="POST" class="p-4">
                             @csrf
                             <button type="submit" class="w-full px-4 py-2 text-left bg-red-600 rounded hover:bg-red-700">
-                                🚪 Logout
+                                 Logout
                             </button>
                         </form>
                     </div>
 
                 </aside>
-                <div class=" overflow-y-scroll w-full">
+                <div class="h-full w-full">
                     @yield('content')
                 </div>
             </section>

@@ -31,4 +31,10 @@ class AppController extends Controller
     public function order($orderId){
         return view("dashboard.order")->with(["orderId"=> $orderId]);
     }
+
+
+    // For Admins
+    public function categories(){
+        return view("admin.dashboard.categories");
+    }
 }

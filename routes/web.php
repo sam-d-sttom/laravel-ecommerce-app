@@ -55,8 +55,10 @@ Route::prefix('/admin')->group(function () {
                 return view('admin.dashboard.profile');
             });
 
-            Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
-            Route::post('/product/create', [ProductController::class, 'store'])->name('product.store');
+            Route::get('/dashboard/product/create', [ProductController::class, 'create'])->name('product.create');
+            Route::post('/dashboard/product/create', [ProductController::class, 'store'])->name('product.store');
+
+            Route::get('/dashboard/categories', [AppController::class, 'categories'])->name('admin.categories');
         }
     );
 });
