@@ -85,6 +85,7 @@ class AdminCategoryComponent extends Component
             $this->showSubcategoryModal = false;
             $this->resetValidation();
         } catch (\Exception $e) {
+            dd($e->getMessage());
         }
     }
 
