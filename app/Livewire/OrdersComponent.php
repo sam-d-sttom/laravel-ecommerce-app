@@ -10,7 +10,7 @@ class OrdersComponent extends Component
     public $orders;
 
     public function mount(){
-        $this->orders = auth()->user()->orders;
+        $this->orders = auth()->user()->orders->sortByDesc('created_at');
     }
 
     public function render()

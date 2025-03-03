@@ -3,25 +3,27 @@
 namespace App\Livewire;
 
 use App\Models\Cart;
-use App\Models\CartItem;
+use Livewire\Livewire;
 use Livewire\Component;
+use App\Models\CartItem;
 
 class AddToCartBtnComponent extends Component
 {
 
     public $product;
 
-    public function mount($product): void{
+    public function mount($product): void
+    {
         $this->product = $product;
     }
 
     public function addProductToCart()
     {
         $userId = auth()->user()->id;
-        
+
         $cartItem = CartItem::where('user_id', $userId)->where('product_id', $this->product->id)->first();
         $cart = Cart::where('user_id', $userId)->first();
-        
+
         if ($cartItem) {
             // Update cart item if it exists
             $cartItem->update([
@@ -30,17 +32,20 @@ class AddToCartBtnComponent extends Component
             ]);
 
             // update cart quantity
-            if($cart){
+            if ($cart) {
                 $cart->update([
                     'quantity' => $cart->quantity + 1,
                 ]);
-            }else{
+            } else {
                 Cart::create([
-                    'user_id'=> $userId,
+                    'user_id' => $userId,
                     'quantity' => 1,
                 ]);
             }
 
+            // Trigger cart icon re-render
+            $this->dispatch('refreshCartComponent');
+            
         } else {
             // Add new cart item if it does not exist
             CartItem::create([
@@ -51,18 +56,19 @@ class AddToCartBtnComponent extends Component
             ]);
 
             // update cart quantity
-            if($cart){
+            if ($cart) {
                 $cart->update([
                     'quantity' => $cart->quantity + 1,
                 ]);
-            }else{
+            } else {
                 Cart::create([
-                    'user_id'=> $userId,
+                    'user_id' => $userId,
                     'quantity' => 1,
                 ]);
             }
+            // Trigger cart icon re-render
+            $this->dispatch('refreshCartComponent');
         }
-        
     }
 
     public function render()

@@ -1,12 +1,13 @@
 @extends('layouts.adminDashboard')
 
 @section('content')
-<section class="relative">
-    <header class="sticky top-0 bg-white py-4 px-[20px] flex z-20 ">
-        <h2 class="text-2xl font-bold text-gray-700 mb-5">Add Product</h2>
-    </header>
+<div class="h-full relative flex flex-col mx-auto pt-18 w-full">
+    <div class="absolute top-0 left-0 h-16 w-full flex items-center px-20">
+        <h1 class="text-2xl font-bold">Add Products</h1>
+    </div>
 
-    <div class="px-[20px]">
+    <section class="flex flex-col justify-between h-full w-full">
+    <div class="overflow-y-scroll px-10 grow">
         <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
@@ -55,7 +56,8 @@
             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add Product</button>
         </form>
     </div>
-</section>
+    </section>
+</div>
 
 <script>
     document.getElementById('category').addEventListener('change', function() {

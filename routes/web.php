@@ -28,6 +28,28 @@ Route::post('/login', [UserController::class, 'login']);
 // Logout user
 Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
+// For users
+Route::middleware(['auth:web'])->group(function () {
+
+    Route::get('/dashboard', function () {
+        return redirect('/dashboard/profile');
+    })->name('dashboard');
+    Route::get('/dashboard/profile', function () {
+        return view('dashboard.profile');
+    });
+
+    Route::get('/product/category/{name}', [ProductController::class, 'getProductsByCategory'])->name('product.productsByCategory');
+    Route::get('/product/{id}', [ProductController::class, 'getSingleProduct'])->name('product.singleProduct');
+
+    Route::get('/dashboard/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
+    Route::post('/wishlist/toggle/{productId}', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
+
+    Route::get('/dashboard/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::get('/dashboard/checkout', [AppController::class, 'checkout'])->name('checkout');
+    Route::get('/dashboard/orders', [AppController::class, 'orders'])->name('orders');
+    Route::get('/dashboard/orders/{orderId}', [AppController::class, 'order'])->name('order');
+});
+
 
 // For admin
 Route::prefix('/admin')->group(function () {
@@ -67,23 +89,3 @@ Route::get('/get-subcategories/{categoryId}', [ProductController::class, 'getSub
 
 
 
-Route::middleware(['auth:web'])->group(function () {
-
-    Route::get('/dashboard', function () {
-        return redirect('/dashboard/profile');
-    });
-    Route::get('/dashboard/profile', function () {
-        return view('dashboard.profile');
-    });
-
-    Route::get('/product/category/{name}', [ProductController::class, 'getProductsByCategory'])->name('product.productsByCategory');
-    Route::get('/product/{id}', [ProductController::class, 'getSingleProduct'])->name('product.singleProduct');
-
-    Route::get('/dashboard/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
-    Route::post('/wishlist/toggle/{productId}', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
-
-    Route::get('/dashboard/cart', [CartController::class, 'index'])->name('cart.index');
-    Route::get('/dashboard/checkout', [AppController::class, 'checkout'])->name('checkout');
-    Route::get('/dashboard/orders', [AppController::class, 'orders'])->name('orders');
-    Route::get('/dashboard/orders/{orderId}', [AppController::class, 'order'])->name('order');
-});

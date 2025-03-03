@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="flex min-h-screen items-center justify-center bg-gray-100">
+<div class="flex items-center justify-around h-full mb-6">
     <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
         <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Register To Continue Shopping</h2>
 

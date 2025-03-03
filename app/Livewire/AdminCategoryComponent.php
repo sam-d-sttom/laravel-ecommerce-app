@@ -85,30 +85,29 @@ class AdminCategoryComponent extends Component
             $this->showSubcategoryModal = false;
             $this->resetValidation();
         } catch (\Exception $e) {
-        
         }
     }
 
     // Edit Category
     public function openEditCategoryModal($id)
     {
-        
+        // work in progress <(^-^)>
     }
 
     public function updateCategory()
     {
-
+        // work in progress <(^-^)>
     }
 
     // Edit Subcategory
     public function openEditSubcategoryModal($id)
     {
-        
+        // work in progress <(^-^)>
     }
 
     public function updateSubcategory()
     {
-        
+        // work in progress <(^-^)>
     }
 
     public function closeModal()

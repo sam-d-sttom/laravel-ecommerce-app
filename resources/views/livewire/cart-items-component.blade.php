@@ -2,7 +2,7 @@
     @php
     $total = 0;
     @endphp
-    <div class="overflow-y-scroll px-6 grow">
+    <div class="overflow-y-scroll px-10 grow">
         @if($cartItems->isEmpty())
         <p class="text-gray-500">Your cart is empty.</p>
         @else
@@ -57,7 +57,7 @@
         </div>
         @endif
     </div>
-    <div class="flex justify-between items-center px-6 h-16">
+    <div class="flex justify-between items-center px-10 h-16">
         <p class="text-gray-900 font-semibold">Total: ${{ number_format($total, 2) }}</p>
 
         <a href="{{ route('checkout') }}">

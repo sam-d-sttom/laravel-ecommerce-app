@@ -21,8 +21,8 @@
         <!-- Order Items -->
         <div class="mb-6">
             <h3 class="text-lg font-semibold mb-2">Ordered Products</h3>
-            <div class="border rounded p-4">
-                <table class="w-full border-collapse">
+            <div class="border rounded p-4 overflow-x-auto">
+                <table class="w-full border-collapse min-w-[600px] md:min-w-0">
                     <thead>
                         <tr class="border-b bg-gray-100">
                             <th class="px-4 py-3 text-left">Product</th>
@@ -42,9 +42,9 @@
                         @endforeach
                     </tbody>
                 </table>
-
             </div>
         </div>
+
 
         <!-- Payment Summary -->
         <div class="mb-6 border-t pt-4">

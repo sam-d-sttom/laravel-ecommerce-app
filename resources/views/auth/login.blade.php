@@ -3,7 +3,7 @@
 @section('title', 'Login')
 
 @section('content')
-<div class="flex min-h-screen items-center justify-center bg-gray-100">
+<div class="flex items-center justify-around h-full">
     <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
         <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Login</h2>
 
@@ -36,11 +36,6 @@
                 @enderror
             </div>
 
-            <!-- Remember Me -->
-            <div class="mb-4 flex items-center">
-                <input type="checkbox" name="remember" id="remember" class="mr-2">
-                <label for="remember" class="text-gray-600 text-sm">Remember Me</label>
-            </div>
 
             <!-- Submit Button -->
             <button type="submit"
