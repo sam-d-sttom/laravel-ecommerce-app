@@ -14,6 +14,9 @@ class Cart extends Component
     {
         try {
             $this->cart = auth()->user()->cart()->first();
+            if(!$this->cart) {
+                $this->cart = auth()->user()->cart()->create();
+            }
             $this->cartQuantity = $this->cart->quantity;
         } catch (\Exception $e) {
             dd($e->getMessage());
