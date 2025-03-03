@@ -15,7 +15,7 @@
         <main class="flex-1 overflow-hidden relative">
             <section class="flex h-full relative" x-data="{ open: false }">
                 <!-- Mobile Toggle Button -->
-                <button @click="open = true" class=" absolute top-4 left-0 bg-gray-900 text-white px-4 py-2 rounded-r-lg shadow-lg z-50">
+                <button @click="open = true" class=" absolute top-4 left-0 bg-gray-900 text-white px-4 py-2 rounded-r-lg shadow-lg z-50 cursor-pointer">
                     ☰
                 </button>
 
@@ -34,7 +34,7 @@
                     <div class=" p-4 text-xl font-bold border-b border-gray-700 flex justify-between items-center">
                         Dashboard
                         <!-- Close Button for Mobile -->
-                        <button @click="open = false" class="absol bg-gray-900 text-white p-2 rounded-lg shadow-lg z-50">
+                        <button @click="open = false" class="cursor-pointer bg-gray-900 text-white p-2 rounded-lg shadow-lg z-50">
                             X
                         </button>
                     </div>
