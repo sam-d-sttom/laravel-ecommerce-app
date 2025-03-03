@@ -4,7 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Category;
-use App\Models\Subcategory;
+use App\Models\SubCategory;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Validator;
 
