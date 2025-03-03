@@ -75,7 +75,7 @@ class AdminCategoryComponent extends Component
                 'subcategory_description' => 'required|string|min:3|max:500',
             ]);
 
-            Subcategory::create([
+            SubCategory::create([
                 'name' => $this->subcategory_name,
                 'description' => $this->subcategory_description,
                 'category_id' => $this->category_id
